@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Sequence
-
-import unittest
-import sys
 import os
 import pkgutil
+import sys
+from typing import Sequence
+import unittest
 
 
 class SingleLoader(object):
@@ -26,20 +25,28 @@ class SingleLoader(object):
         self.suite = unittest.TestSuite()
         tests = []
 
-        for importer, module_name, is_package in pkgutil.walk_packages([os.path.dirname(os.path.relpath(__file__))]):
+        for importer, module_name, is_package in pkgutil.walk_packages(
+            [os.path.dirname(os.path.relpath(__file__))]
+        ):
             if pattern in module_name:
-                module = importer.find_module(module_name).load_module(module_name)
+                module = importer.find_module(module_name).load_module(
+                    module_name
+                )
                 tests.append(loader.loadTestsFromModule(module))
 
         if len(tests) != 1:
-            raise AssertionError("Expected only 1 test module. Found {}".format(tests))
+            raise AssertionError(
+                "Expected only 1 test module. Found {}".format(tests)
+            )
         self.suite.addTest(tests[0])
 
-    def loadTestsFromNames(self, names: Sequence[str], module: str = None) -> unittest.TestSuite:
+    def loadTestsFromNames(
+        self, names: Sequence[str], module: str = None
+    ) -> unittest.TestSuite:
         return self.suite
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     if len(sys.argv) != 2:
         print(f"USAGE: {sys.argv[0]} TARGET_MODULE", file=sys.stderr)
 
@@ -51,6 +58,6 @@ if __name__ == "__main__":
     loader = SingleLoader(target_module)
     runner = unittest.TextTestRunner(**test_kwargs)
     result = runner.run(loader.suite)
-    
+
     if not result.wasSuccessful():
         sys.exit("Test failure.")

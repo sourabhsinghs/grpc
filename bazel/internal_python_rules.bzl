@@ -16,7 +16,6 @@
 load("//bazel:gevent_test.bzl", "py_grpc_gevent_test")
 load("//bazel:logging_threshold_test.bzl", "py_grpc_logging_threshold_test")
 
-
 def internal_py_grpc_test(name, **kwargs):
     """Runs a test under all supported environments.
 
