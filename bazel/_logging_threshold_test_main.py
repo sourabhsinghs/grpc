@@ -17,8 +17,11 @@ import tempfile
 import sys
 import subprocess
 
-if __name__ == "__main__":
+LOGGING_ERROR_THRESHOLD = 50
+LOGGING_OUT_THRESHOLD = 20
 
+if __name__ == "__main__":
+ 
     if len(sys.argv) != 2:
         print(f"USAGE: {sys.argv[0]} TARGET_MODULE", file=sys.stderr)
 
@@ -35,7 +38,8 @@ if __name__ == "__main__":
             stdout_count = len(client_stdout.readlines()) 
             stderr_count = len(client_stderr.readlines())
 
-            print(",".join(map(str, ["values", target_module, stdout_count, stderr_count])))
-
             if result.returncode != 0:
+                sys.exit('Test failure')
+            
+            if stderr_count > LOGGING_ERROR_THRESHOLD or stdout_count > LOGGING_OUT_THRESHOLD:
                 sys.exit('Test failure')
