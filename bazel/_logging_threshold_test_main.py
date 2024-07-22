@@ -66,13 +66,11 @@ if __name__ == "__main__":
 
     # Count log entries and output lengths
     log_count = len(log_handler.buffer)
-    stdout_len = len(stdout_buffer.getvalue())
-    stderr_len = len(stderr_buffer.getvalue())
+    stdout_count = len(stdout_buffer.getvalue().splitlines())
+    stderr_count = len(stdout_buffer.getvalue().splitlines())
 
+    print(",".join(map(str,["values", target_module, log_count, stdout_count, stderr_count])))
 
-    print(f"log: {log_count}\n")
-    print(f"stdout: {stdout_len}\n")
-    print(f"stderr: {stderr_len}\n")
 
     if not result.wasSuccessful():
         sys.exit('Test failure')
