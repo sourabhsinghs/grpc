@@ -69,6 +69,7 @@ _INVALID_ABORT_CODES = [3]
 _EXPECTED_CLIENT_CODES_WITH_INVALID_ABORT_CODES = [grpc.StatusCode.UNKNOWN]
 _EXPECTED_DETAILS_WITH_INVALID_ABORT_CODES = [_DETAILS]
 
+
 class _Servicer(object):
     def __init__(self):
         self._lock = threading.Lock()
