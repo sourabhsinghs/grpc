@@ -45,10 +45,10 @@ from grpc._typing import DeserializingFunction
 from grpc._typing import IntegratedCallFactory
 from grpc._typing import MetadataType
 from grpc._typing import NullaryCallbackType
+from grpc._typing import RequestIterableType
 from grpc._typing import ResponseType
 from grpc._typing import SerializingFunction
 from grpc._typing import UserTag
-from grpc._typing import RequestIterableType
 import grpc.experimental  # pytype: disable=pyi-error
 
 _LOGGER = logging.getLogger(__name__)

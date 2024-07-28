@@ -23,13 +23,13 @@ from typing import (
     AsyncIterator,
     Awaitable,
     Callable,
-    Iterator,
     Generic,
+    Iterator,
     List,
     Optional,
     Sequence,
-    Union,
     Tuple,
+    Union,
 )
 
 import grpc
