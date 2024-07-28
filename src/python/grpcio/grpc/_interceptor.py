@@ -19,15 +19,14 @@ import types
 from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 import grpc
+from grpc._typing import InterceptorType
 
 from ._typing import DeserializingFunction
 from ._typing import DoneCallbackType
 from ._typing import MetadataType
+from ._typing import NullaryCallbackType
 from ._typing import RequestIterableType
 from ._typing import SerializingFunction
-from ._typing import NullaryCallbackType
-from grpc._typing import InterceptorType
-
 
 
 class _ServicePipeline(object):
@@ -131,7 +130,7 @@ def _unwrap_client_call_details(
             default_details.compression
         )  # pytype: disable=attribute-error
 
-    return method, timeout, metadata, credentials, wait_for_ready, compression # type: ignore
+    return method, timeout, metadata, credentials, wait_for_ready, compression  # type: ignore
 
 
 class _FailureOutcome(
@@ -811,11 +810,7 @@ class _Channel(grpc.Channel):
 
 def intercept_channel(
     channel: grpc.Channel,
-    *interceptors: Optional[
-        Tuple[
-            InterceptorType
-        ]
-    ],
+    *interceptors: Optional[Tuple[InterceptorType]],
 ) -> grpc.Channel:
     for interceptor in reversed(list(interceptors)):
         if (
