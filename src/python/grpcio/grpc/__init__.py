@@ -23,13 +23,25 @@ import logging
 import sys
 import threading
 import types
-from typing import Any, Callable, Mapping, NoReturn, Optional, Sequence, Tuple, Iterator, Iterable, Dict
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Iterable,
+    Iterator,
+    Mapping,
+    NoReturn,
+    Optional,
+    Sequence,
+    Tuple,
+)
 
 from grpc import _compression
 from grpc._cython import cygrpc as _cygrpc
 from grpc._runtime_protos import protos
 from grpc._runtime_protos import protos_and_services
 from grpc._runtime_protos import services
+from grpc._typing import ArityAgnosticMethodHandler
 from grpc._typing import ChannelArgumentType
 from grpc._typing import DeserializingFunction
 from grpc._typing import GeneralIterableType
@@ -38,7 +50,6 @@ from grpc._typing import MetadataType
 from grpc._typing import NullaryCallbackType
 from grpc._typing import RequestType
 from grpc._typing import SerializingFunction
-from grpc._typing import ArityAgnosticMethodHandler
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
@@ -1549,7 +1560,9 @@ class Server(abc.ABC):
         """
         raise NotImplementedError()
 
-    def add_registered_method_handlers(self, service_name: str, method_handlers: Dict[str, RpcMethodHandler]):
+    def add_registered_method_handlers(
+        self, service_name: str, method_handlers: Dict[str, RpcMethodHandler]
+    ):
         """Registers GenericRpcHandlers with this Server.
 
         This method is only safe to call before the server is started.
@@ -2283,7 +2296,7 @@ def secure_channel(
     from grpc import _channel  # pylint: disable=cyclic-import
     from grpc.experimental import _insecure_channel_credentials
 
-    if credentials._credentials is _insecure_channel_credentials: # type: ignore[union-attr]
+    if credentials._credentials is _insecure_channel_credentials:  # type: ignore[union-attr]
         raise ValueError(
             "secure_channel cannot be called with insecure credentials."
             + " Call insecure_channel instead."
@@ -2291,7 +2304,7 @@ def secure_channel(
     return _channel.Channel(
         target,
         () if options is None else options,
-        credentials._credentials, # type: ignore[union-attr]
+        credentials._credentials,  # type: ignore[union-attr]
         compression,
     )
 
