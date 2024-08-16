@@ -19,15 +19,15 @@ import types
 from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 import grpc
+from grpc._typing import InterceptorType
 
 from ._typing import DeserializingFunction
 from ._typing import DoneCallbackType
 from ._typing import MetadataType
+from ._typing import NullaryCallbackType
 from ._typing import RequestIterableType
 from ._typing import RequestIteratorType
 from ._typing import SerializingFunction
-from ._typing import NullaryCallbackType
-from grpc._typing import InterceptorType
 
 
 class _ServicePipeline(object):
@@ -693,9 +693,7 @@ class _Channel(grpc.Channel):
         self._channel = channel
         self._interceptor = interceptor
 
-    def subscribe(
-        self, callback: Callable, try_to_connect: bool = False
-    ):
+    def subscribe(self, callback: Callable, try_to_connect: bool = False):
         self._channel.subscribe(callback, try_to_connect=try_to_connect)
 
     def unsubscribe(self, callback: Callable):
