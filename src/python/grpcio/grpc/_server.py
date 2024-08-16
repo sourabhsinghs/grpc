@@ -27,6 +27,7 @@ import traceback
 from typing import (
     Any,
     Callable,
+    Dict,
     Iterable,
     Iterator,
     List,
@@ -37,7 +38,6 @@ from typing import (
     Set,
     Tuple,
     Union,
-    Dict,
 )
 
 import grpc  # pytype: disable=pyi-error
@@ -624,7 +624,7 @@ def _call_behavior(
                     argument, context, send_response_callback
                 )
             else:
-                print("*"*100)
+                print("*" * 100)
                 print(type(behavior))
                 response_or_iterator = behavior(argument, context)
             return response_or_iterator, True
