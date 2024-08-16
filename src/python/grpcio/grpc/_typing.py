@@ -20,12 +20,12 @@ from typing import (
     Callable,
     Iterable,
     Iterator,
+    List,
     Optional,
     Sequence,
     Tuple,
     TypeVar,
     Union,
-    List,
 )
 
 from grpc._cython import cygrpc
