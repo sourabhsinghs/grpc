@@ -20,9 +20,9 @@ from typing import (
     Iterable,
     Sequence,
     Tuple,
+    Type,
     TypeVar,
     Union,
-    Type,
 )
 
 from grpc._cython.cygrpc import EOF
