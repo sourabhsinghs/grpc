@@ -27,8 +27,8 @@ from typing import (
     List,
     Optional,
     Sequence,
-    Union,
     Tuple,
+    Union,
 )
 
 import grpc
