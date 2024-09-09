@@ -16,6 +16,7 @@
 import logging
 import unittest
 
+from google import protobuf
 from google.protobuf import descriptor_pb2
 import grpc
 from grpc.experimental import aio
@@ -28,7 +29,6 @@ from src.proto.grpc.testing.proto2 import empty2_extensions_pb2
 from src.proto.grpc.testing.proto2 import empty2_pb2
 from tests_aio.unit._test_base import AioTestBase
 
-from google import protobuf
 print(dir(protobuf))
 print(protobuf.__version__)
 print(protobuf.__file__)
