@@ -127,6 +127,7 @@ libs:
   - absl/functional:any_invocable
   - absl/log:check
   - absl/log:globals
+  - absl/log:initialize
   - absl/log:log
   - absl/memory:memory
   - absl/numeric:bits
@@ -2136,7 +2137,6 @@ libs:
   - absl/debugging:failure_signal_handler
   - absl/debugging:stacktrace
   - absl/debugging:symbolize
-  - absl/log:initialize
   - grpc
 - name: grpc_test_util_unsecure
   build: private
@@ -2165,7 +2165,6 @@ libs:
   - absl/debugging:failure_signal_handler
   - absl/debugging:stacktrace
   - absl/debugging:symbolize
-  - absl/log:initialize
   - grpc_unsecure
 - name: grpc_unsecure
   build: all
