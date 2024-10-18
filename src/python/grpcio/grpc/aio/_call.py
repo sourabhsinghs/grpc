@@ -393,7 +393,7 @@ class _StreamResponseMixin(Call):
                 raw_response, self._response_deserializer
             )
 
-    async def read(self) -> Union[EOFType, ResponseType]: # type: ignore
+    async def read(self) -> Union[EOFType, ResponseType]:  # type: ignore
         # Wait for the request being sent
         await self._preparation
 
