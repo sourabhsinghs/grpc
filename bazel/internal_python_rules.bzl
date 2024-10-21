@@ -31,7 +31,6 @@ def internal_py_grpc_test(name, **kwargs):
     py_grpc_gevent_test(name, **kwargs)
     py_grpc_run_time_type_check_test(name, **kwargs)
 
-
     suite_kwargs = {}
     if "visibility" in kwargs:
         suite_kwargs["visibility"] = kwargs["visibility"]
