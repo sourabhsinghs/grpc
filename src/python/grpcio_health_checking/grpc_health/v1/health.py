@@ -37,7 +37,7 @@ class _Watcher:
     _condition: threading.Condition
     _responses: collections.deque
     _open: bool
-    
+
     def __init__(self):
         self._condition = threading.Condition()
         self._responses = collections.deque()
@@ -102,10 +102,10 @@ class HealthServicer(_health_pb2_grpc.HealthServicer):
         self._lock = threading.RLock()
         self._server_status = {"": _health_pb2.HealthCheckResponse.SERVING}
         self._send_response_callbacks = {}
-        self.Watch.__func__.experimental_non_blocking = ( # type: ignore
+        self.Watch.__func__.experimental_non_blocking = (  # type: ignore
             experimental_non_blocking
         )
-        self.Watch.__func__.experimental_thread_pool = experimental_thread_pool # type: ignore
+        self.Watch.__func__.experimental_thread_pool = experimental_thread_pool  # type: ignore
         self._gracefully_shutting_down = False
 
     def _on_close_callback(
@@ -114,7 +114,7 @@ class HealthServicer(_health_pb2_grpc.HealthServicer):
             [_health_pb2.HealthCheckResponse], None
         ],
         service: str,
-    ) -> Callable[[], None]:        
+    ) -> Callable[[], None]:
         def callback():
             with self._lock:
                 self._send_response_callbacks[service].remove(
@@ -139,13 +139,13 @@ class HealthServicer(_health_pb2_grpc.HealthServicer):
 
     # pylint: disable=arguments-differ
     def Watch(
-            self,
-            request: _health_pb2.HealthCheckRequest,
-            context: grpc.ServicerContext,
-            send_response_callback: Optional[
-                Callable[[_health_pb2.HealthCheckResponse], None]
-            ] = None,
-        ) -> Optional[_Watcher]:        
+        self,
+        request: _health_pb2.HealthCheckRequest,
+        context: grpc.ServicerContext,
+        send_response_callback: Optional[
+            Callable[[_health_pb2.HealthCheckResponse], None]
+        ] = None,
+    ) -> Optional[_Watcher]:
         blocking_watcher = None
         if send_response_callback is None:
             # The server does not support the experimental_non_blocking
