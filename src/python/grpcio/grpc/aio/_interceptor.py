@@ -25,15 +25,14 @@ from typing import (
     Callable,
     Generic,
     List,
+    NoReturn,
     Optional,
     Sequence,
     Tuple,
     Union,
-    NoReturn,
 )
 
 import grpc
-from ._eof import EOF
 from grpc._cython import cygrpc
 
 from . import _base_call
@@ -45,6 +44,7 @@ from ._call import UnaryUnaryCall
 from ._call import _API_STYLE_ERROR
 from ._call import _RPC_ALREADY_FINISHED_DETAILS
 from ._call import _RPC_HALF_CLOSED_DETAILS
+from ._eof import EOF
 from ._metadata import Metadata
 from ._typing import DeserializingFunction
 from ._typing import DoneCallbackType
@@ -501,13 +501,13 @@ class _InterceptedStreamResponseMixin(Generic[ResponseType]):
             )
         return self._response_aiter
 
-    async def read(self) -> Union[cygrpc.EOF, ResponseType]:  
+    async def read(self) -> Union[cygrpc.EOF, ResponseType]:
         if self._response_aiter is None:
             self._response_aiter = (
                 self._wait_for_interceptor_task_response_iterator()
             )
         try:
-            return await self._response_aiter.asend(None) # type: ignore
+            return await self._response_aiter.asend(None)  # type: ignore
         except StopAsyncIteration:
             return cygrpc.EOF
 
@@ -1059,9 +1059,9 @@ class InterceptedStreamStreamCall(
 class UnaryUnaryCallResponse(_base_call.UnaryUnaryCall, Generic[ResponseType]):
     """Final UnaryUnaryCall class finished with a response."""
 
-    _response: ResponseType 
+    _response: ResponseType
 
-    def __init__(self, response: ResponseType) -> None: 
+    def __init__(self, response: ResponseType) -> None:
         self._response = response
 
     def cancel(self) -> bool:
@@ -1155,22 +1155,26 @@ class _StreamCallResponseIterator(Generic[ResponseType]):
 
 
 class UnaryStreamCallResponseIterator(
-    _StreamCallResponseIterator, _base_call.UnaryStreamCall, Generic[RequestType,ResponseType]
+    _StreamCallResponseIterator,
+    _base_call.UnaryStreamCall,
+    Generic[RequestType, ResponseType],
 ):
     """UnaryStreamCall class wich uses an alternative response iterator."""
 
-    async def read(self) -> Union[EOF, ResponseType]:  
+    async def read(self) -> Union[EOF, ResponseType]:
         # Behind the scenes everyting goes through the
         # async iterator. So this path should not be reached.
         raise NotImplementedError()
 
 
 class StreamStreamCallResponseIterator(
-    _StreamCallResponseIterator, _base_call.StreamStreamCall, Generic[RequestType,ResponseType]
+    _StreamCallResponseIterator,
+    _base_call.StreamStreamCall,
+    Generic[RequestType, ResponseType],
 ):
     """StreamStreamCall class wich uses an alternative response iterator."""
 
-    async def read(self) -> Union[EOF, ResponseType]:  
+    async def read(self) -> Union[EOF, ResponseType]:
         # Behind the scenes everyting goes through the
         # async iterator. So this path should not be reached.
         raise NotImplementedError()
@@ -1189,4 +1193,4 @@ class StreamStreamCallResponseIterator(
 
     @property
     def _done_writing_flag(self) -> bool:
-        return self._call._done_writing_flag # type: ignore
+        return self._call._done_writing_flag  # type: ignore
