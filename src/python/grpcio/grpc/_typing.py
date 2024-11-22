@@ -20,6 +20,7 @@ from typing import (
     Callable,
     Iterable,
     Iterator,
+    List,
     Optional,
     Sequence,
     Tuple,
