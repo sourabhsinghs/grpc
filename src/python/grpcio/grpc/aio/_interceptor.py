@@ -24,6 +24,7 @@ from typing import (
     Awaitable,
     Callable,
     Generic,
+    Iterator,
     List,
     Optional,
     Sequence,
