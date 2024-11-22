@@ -30,7 +30,6 @@ class TestAllModulesInstalled(unittest.TestCase):
         # This test simply imports all the modules.
         # If any module fails to import, the test will fail.
 
-
 if __name__ == "__main__":
     logging.basicConfig()
     unittest.main(verbosity=3)
