@@ -20,6 +20,7 @@ from typing import (
     Iterable,
     Sequence,
     Tuple,
+    Type,
     TypeVar,
     Union,
 )
